@@ -1,4 +1,4 @@
-# Homework1: Sistema de Gestión de Usuarios
+# Homework Nº1: Sistema de Gestión de Usuarios
 
 Este proyecto en Python simula un sistema de gestión de usuarios para una plataforma ficticia. Permite:
 
