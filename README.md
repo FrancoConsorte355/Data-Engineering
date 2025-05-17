@@ -40,10 +40,11 @@ project_root/              # homework1
 1. **Clonar el repositorio** y situarse en la carpeta raíz:
 
    ```bash
-   git clone https://github.com/FrancoConsorte355/Data-Engineering.git
+      git clone https://github.com/FrancoConsorte355/Data-Engineering.git
    
-   Entrar en la carpeta del proyecto
-   cd Data-Engineering
+Entrar en la carpeta del proyecto
+
+      cd Data-Engineering
    ```
 2. **Crear y activar** entorno virtual:
 
