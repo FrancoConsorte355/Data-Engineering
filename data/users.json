@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Test",
+    "email": "t@t.com",
+    "password": "5bfe7abf43af7237fb5a0cf61122231f76bed7bccbb5af740967f16bfcbe637b"
+  },
+  {
+    "name": "Franco",
+    "email": "francoconsorte@gmail.com",
+    "password": "fb3520c4b5c38d453f6e85548bfe154c0aa8c5f0b6c9c8f98dd51c18ab1fcb8f"
+  },
+  {
+    "name": "Fernando",
+    "email": "fer.fercho@gmail.com",
+    "password": "feba4d6b47d453768e5868f0dbb4120909c9ef1c0b8d2a3a0a33ba5d6e24bc0e"
+  },
+  {
+    "name": "Lucas",
+    "email": "lucas@gmail.com",
+    "password": "b03df5988382ffb51a295783dd8fd7b11ea658e0569828a9422ebb3e7d4cd610"
+  },
+  {
+    "name": "a",
+    "email": "a@gmail.com",
+    "password": "9940931074aa476959a46c73e0d185a985aac9c6a0c46652cabccbcc0de300ea"
+  },
+  {
+    "name": "pepe",
+    "email": "pepe@gmail.com",
+    "password": "45718dca0e546fc191e9dd31ec0265db287545594dca054eb9c3580b56b90153"
+  },
+  {
+    "name": "Facundo Perez",
+    "email": "facuper@gmail.com",
+    "password": "5641b8fe00179ba1cda28aa01ad3c7bd8d04e316ef6fe76971a6b433cbe07e38"
+  },
+  {
+    "name": "Kevin Garcia",
+    "email": "kevinG2@gmail.com.us",
+    "password": "f247fadbc6ebc7c936fbe973d2375322b0bc1cd0057f32cd4fb75a10430c21cf"
+  }
+]
