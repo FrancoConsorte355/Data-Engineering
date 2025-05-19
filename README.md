@@ -1,4 +1,4 @@
-# Homework1: Sistema de Gestión de Usuarios
+# Homework Nº1: Sistema de Gestión de Usuarios
 
 Este proyecto en Python simula un sistema de gestión de usuarios para una plataforma ficticia. Permite:
 
@@ -37,37 +37,34 @@ project_root/              # homework1
 
 ## 🚀 Requisitos e instalación
 
-1. **Clonar el repositorio** y situarse en la carpeta raíz:
+1. **Clonar el repositorio desde GitHub**
 
    ```bash
-   git clone <url-del-repo>
-   cd homework1
+   git clone https://github.com/FrancoConsorte355/Data-Engineering.git
    ```
-2. **Crear y activar** entorno virtual:
+2. **Entrar en la carpeta del proyecto**
+
+   ```bash
+   cd Data-Engineering
+   ```
+3. **Crear y activar el entorno virtual**
 
    ```bash
    python -m venv venv
-   # Windows PowerShell:
+   # Windows PowerShell
    .\venv\Scripts\Activate.ps1
-   # Windows CMD:
+   # Windows CMD
    .\venv\Scripts\activate.bat
-   # macOS / Linux:
+   # macOS / Linux
    source venv/bin/activate
    ```
-3. **Instalar dependencias**:
+4. **Instalar dependencias**
 
    ```bash
    pip install -r requirements.txt
    ```
-4. **Configurar** variables sensibles en `.env`:
-
-   ```dotenv
-   DATA_FILE=./data/users.json
-   PASSWORD_SALT=my_super_secret_salt
-   ```
 
 ---
-
 ## ▶️ Cómo ejecutar la aplicación
 
 En la raíz del proyecto, con el entorno virtual activo:
