@@ -5,7 +5,7 @@
 Ecowatch es una herramienta de línea de comandos para procesar y analizar logs ambientales de distintas salas. El sistema simula la recepción continua de datos desde un archivo CSV, los valida, los almacena en una caché de ventana temporal, y genera reportes tanto en consola como en formatos tabulares (CSV/Excel).
 
 ## Arquitectura y Organización de Código
-
+ ```
 ecowatch/                         ← raíz del proyecto
 ├── src/                          ← código fuente
 │   ├── __init__.py
@@ -62,7 +62,7 @@ ecowatch/                         ← raíz del proyecto
 ├── requirements.txt              ← dependencias
 ├── .env                          ← variables sensibles
 └── README.md                     ← overview del proyecto
-
+ ```
 * `src/ingestion/`: lectores de logs y validadores.
 * `src/cache/`: implementación de caché deslizante (`TemporalCache`).
 * `src/domain/`: modelos de datos (`Log`, `Sensor`, `Sala`).
