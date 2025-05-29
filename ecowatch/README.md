@@ -48,7 +48,6 @@ ecowatch/                         ← raíz del proyecto
 │
 ├── tests/                        ← pruebas unitarias (pytest/unittest)
 │   ├── __init__.py
-│   │
 │   └── test_reports.py
 │
 ├── data/                         ← datos, simulacion de fuente de datos
