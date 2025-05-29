@@ -132,7 +132,7 @@ Sigue estos pasos para preparar y ejecutar la aplicación, así como su suite de
 
 1. **Clonar el repositorio**
    ```bash
-   git clone <URL-del-repositorio>
+   git clone [<URL-del-repositorio>](https://github.com/FrancoConsorte355/Data-Engineering/tree/main/ecowatch)
    cd ecowatch
    ```
 
