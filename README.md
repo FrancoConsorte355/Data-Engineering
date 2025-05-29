@@ -1,4 +1,4 @@
-# 🚀 DATA ENGINEERING ACCENTURE-HENRY  
+# 🚀 DATA ENGINEERING ACCENTURE-HENRY 🚀
 
 ¡Bienvenido a este repositorio! Aquí encontrarás todas las *Homeworks* y el *Proyecto Integrador* del *Prep Course* de **Data Engineering** en la alianza **Accenture-Henry**.  
 
@@ -10,8 +10,5 @@ Cada carpeta contiene un conjunto de tareas y proyectos diseñados para fortalec
 - **🎯 Proyecto Integrador** → Proyecto Final, presentado al finalizar el curso.  
 
 ## 📌 Notas adicionales  
-Este repositorio es una herramienta clave para el aprendizaje y desarrollo dentro del curso. ¡No dudes en explorarlo y sacarle el máximo provecho! 💡  
-
+Este repositorio es una herramienta clave para el aprendizaje y desarrollo. ¡No dudes en explorarlo y sacarle el máximo provecho! 💡  
 ---
-
-Si tienes sugerencias o mejoras, siéntete libre de contribuir. ¡Mucho éxito en tu camino como **Data Engineer**! 🚀  
