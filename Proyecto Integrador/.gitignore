@@ -1,0 +1,25 @@
+# 1) Entorno virtual
+venv/
+
+# 2) Variables de entorno (secretos, rutas)
+.env
+
+# 3) Caché y compilados de Python
+__pycache__/
+*.py[cod]
+
+# 4) Archivos de datos generados / procesados
+data/procesados/
+# Si usas otra carpeta, pon aquí su ruta
+
+# 5) Diseños de MySQL Workbench u otros binarios
+*.mwb
+
+# 6) Logs y dumps temporales
+*.log
+*.sqlite3
+
+# 7) Configuración local de IDEs (opcional)
+.vscode/
+.idea/
+
