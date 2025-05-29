@@ -121,8 +121,8 @@ Cada carpeta refleja una responsabilidad clara, facilitando mantenimiento y exte
 
 ## Futuros Trabajos
 
-* Desplegar un **API REST** (FastAPI) para servir reportes en JSON.
-* Integrar **monitoring** y métricas de uso con decorators de benchmarking.
+* Desplegar un **API REST** (FastAPI) para servir reportes en JSON.            ← No se llego
+* Integrar **monitoring** y métricas de uso con decorators de benchmarking.    ← No se llego
 * Añadir **nuevos formatos de entrada** (JSON, MQ) implementando `ReaderInterface`.
 * Expandir patrones (Decorator para caching extendido, Strategy para filtros de alertas).
 
@@ -177,7 +177,7 @@ Sigue estos pasos para preparar y ejecutar la aplicación, así como su suite de
    - Para exportar, elige la opción CSV o Excel; los archivos quedarán en `exportacion_archivos/exportacion_CSV/` o `.../exportacion_EXCEL/`.
 
 6. **Ejecutar pruebas**
-   - **pytest** (test_ingest):
+   - **pytest** (test_ingest): ← No llegue a que funcionara
      ```bash
      # Asegúrate de incluir 'src' en PYTHONPATH:
      export PYTHONPATH=$(pwd)/src    # Unix/macOS
