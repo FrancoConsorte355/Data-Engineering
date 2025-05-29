@@ -1,9 +1,5 @@
 # 🚀 DATA ENGINEERING ACCENTURE-HENRY  
 
-![image](https://github.com/user-attachments/assets/5cb72d28-c7e6-416a-bc63-480e79f5a077)         ![image](https://github.com/user-attachments/assets/6e847c6b-2c7a-4c92-81a5-9a407406d919)
-
-
-
 ¡Bienvenido a este repositorio! Aquí encontrarás todas las *Homeworks* y el *Proyecto Integrador* del *Prep Course* de **Data Engineering** en la alianza **Accenture-Henry**.  
 
 ## 📂 Estructura del repositorio  
