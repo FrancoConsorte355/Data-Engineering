@@ -177,14 +177,14 @@ DB_NAME=proyecto_integrador
 ```
 
 ### Protección: 
-      *✅ Se carga con python-decouple.
-      *✅ Se excluye del repositorio (.gitignore).
-      *✅ Se recomienda un .env.example sin datos reales.
+   *✅ Se carga con python-decouple.
+   *✅ Se excluye del repositorio (.gitignore).
+   *✅ Se recomienda un .env.example sin datos reales.
 
 ## Notebook de Integración (integracion_final.ipynb)
 ### Propósito: Documentar la conexión, consultas SQL y pruebas unitarias en un entorno interactivo.
 ### Incluye:
-    *✅ Validación de conexión (SELECT 1).
-    *✅ Ejecución de consultas SQL (SUBCONSULTAS SIMPLES, CORRELACIONADAS, NO CORRELACIONADAS, CTE, Window Functions).
-    *✅ Demostración de patrones de diseño (Singleton, Builder, Factory).
-    *✅ Ejecución de pruebas unitarias(pytest).
+   *✅ Validación de conexión (SELECT 1).
+   *✅ Ejecución de consultas SQL (SUBCONSULTAS SIMPLES, CORRELACIONADAS, NO CORRELACIONADAS, CTE, Window Functions).
+   *✅ Demostración de patrones de diseño (Singleton, Builder, Factory).
+   *✅ Ejecución de pruebas unitarias(pytest).
