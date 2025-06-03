@@ -2,6 +2,7 @@ import os
 import shutil
 from typing import List
 import pandas as pd
+from datetime import datetime, time
 from sqlalchemy.orm import Session
 from src.models.sales import Sales
 
@@ -28,13 +29,26 @@ class SalesManager:
         """
         Procesa un DataFrame de ventas:
         - Itera cada fila, crea instancia de Sales y la añade a la sesión.
-        Maneja valores NaN en SalesDate convirtiéndolos a None para evitar errores de columna "nan".
+        - Convierte la columna SalesDate de string a datetime.time para tipo TIME.
         """
         for _, row in df.iterrows():
-            # Convertir NaN de SalesDate a None para SQLAlchemy
-            sales_date = row.get('SalesDate')
-            if pd.isna(sales_date):
+            raw = row.get('SalesDate')
+            if pd.isna(raw) or raw is None:
                 sales_date = None
+            else:
+                # Si ya es datetime.time, mantenerlo
+                if isinstance(raw, time):
+                    sales_date = raw
+                else:
+                    # Intentar parsear formato mm:ss.S o HH:MM:SS
+                    try:
+                        sales_date = datetime.strptime(str(raw), '%M:%S.%f').time()
+                    except ValueError:
+                        try:
+                            sales_date = datetime.strptime(str(raw), '%H:%M:%S').time()
+                        except ValueError:
+                            # Fallback: guardar como None o lanzar error
+                            sales_date = None
 
             sale = Sales(
                 SalesID=int(row['SalesID']),
@@ -45,7 +59,7 @@ class SalesManager:
                 Discount=float(row['Discount']),
                 TotalPrice=float(row['TotalPrice']),
                 SalesDate=sales_date,
-                TransactionNumber=row['TransactionNumber']
+                TransactionNumber=str(row['TransactionNumber'])
             )
             self._session.add(sale)
 
@@ -60,9 +74,20 @@ class SalesManager:
     def procesar_archivos(self, rutas: List[str]) -> None:
         """
         Conveniencia: procesa una lista de rutas de CSV.
+        Ahora lee el CSV sin parsear fechas, para manejar tiempo puro.
         """
         for ruta in rutas:
-            # Leer CSV, parseando la columna SalesDate si existe
-            df = pd.read_csv(ruta, parse_dates=['SalesDate'])
+            df = pd.read_csv(ruta, dtype=str)  # Leer todo como str
+            # Convertir columnas numéricas a sus tipos
+            df['SalesID']         = df['SalesID'].astype(int)
+            df['SalesPersonID']   = df['SalesPersonID'].astype(int)
+            df['CustomerID']      = df['CustomerID'].astype(int)
+            df['ProductID']       = df['ProductID'].astype(int)
+            df['Quantity']        = df['Quantity'].astype(float)
+            df['Discount']        = df['Discount'].astype(float)
+            df['TotalPrice']      = df['TotalPrice'].astype(float)
+            # SalesDate permanece como cadena hasta procesar
+            # TransactionNumber ya es str
+
             self.procesar_dataframe(df)
             self.marcar_procesado(ruta)

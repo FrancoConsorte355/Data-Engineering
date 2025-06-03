@@ -10,6 +10,8 @@ Diseñar e implementar un sistema robusto que:
 * Modele la lógica en Python empleando Programación Orientada a Objetos.
 * Aplique patrones de diseño para mejorar la escalabilidad y mantenibilidad del software.
 
+## Avance 1
+
 ## Estructura del Proyecto
 
 ```
@@ -92,3 +94,96 @@ Durante la ejecución la pipeline:
 * Indicará uso de memoria y tiempos parciales de archivado, procesamiento y total.
 * Al concluir, mostrará un resumen de tiempos y un mensaje de "Pipeline completada".
 
+
+## Avance 2
+
+## Patrones de Diseño Implementados
+
+### 1. Singleton (archivo `src/db.py`)
+- **Funcionalidad**:  
+  El patrón Singleton asegura que exista una **única instancia** de la clase `Database` en toda la aplicación.  
+  - En `Database.__new__()` se verifica si ya existe una instancia almacenada en `Database._instance`.  
+  - Si no existe, se crea, se invoca `_setup()` para inicializar el `engine`, la fábrica de sesiones (`SessionLocal`) y la base declarativa (`Base`).  
+  - Todas las llamadas posteriores a `Database()` devuelven la misma instancia compartida.
+
+- **Por qué es escalable**:  
+  1. **Uso único de recursos**: Al reutilizar el mismo `engine` y las mismas configuraciones de conexión, se evitan múltiples conexiones innecesarias a la base de datos y se optimiza el pool de conexiones.  
+  2. **Configuración centralizada**: Cualquier cambio en la URL de conexión, pool de conexiones o parámetros de SQLAlchemy se hace en un solo lugar, y todas las partes del sistema usan esa misma configuración.  
+  3. **Evita inconsistencias**: No existe el riesgo de tener instancias duplicadas apuntando a URIs o credenciales diferentes, porque siempre se instancia el mismo objeto.
+
+### 2. Builder (archivo `src/models/sales.py`)
+- **Funcionalidad**:  
+  El patrón Builder permite crear instancias de la entidad `Sales` paso a paso.  
+  - Se expone `Sales.builder()` que devuelve un `SalesBuilder`.  
+  - `SalesBuilder` cuenta con métodos `set_*` (por ejemplo `set_sales_id()`, `set_customer_id()`, etc.) para asignar cada uno de los campos de `Sales`.  
+  - Una vez establecidos todos los campos obligatorios, se llama a `.build()` para validar que no falte nada y devolver la instancia de `Sales`. Si falta algún campo obligatorio, `build()` lanza `ValueError` con la lista de campos faltantes.
+
+- **Por qué es escalable**:  
+  1. **Fácil extensión**: Si en el futuro se añade un campo nuevo a la tabla `sales` (por ejemplo `payment_method`, `promo_code`, etc.), basta con agregar un método `set_payment_method(...)` en `SalesBuilder` sin modificar el constructor original de `Sales`. El consumidor del Builder no se ve obligado a cambiar la firma de `Sales(...)`.  
+  2. **Separación de responsabilidades**: La lógica de construcción (validación de campos, valores por defecto, etc.) queda aislada en `SalesBuilder`, mientras que la clase `Sales` se mantiene limpia, con solo mapeo ORM y su propia lógica de negocio (por ejemplo `calcular_total()`).  
+  3. **Lectura clara y encadenada**: El código que crea ventas en el pipeline queda más legible, al encadenar `builder.set_...().set_...().build()` en lugar de pasar un montón de parámetros posicionales o diccionarios sueltos.
+
+---
+
+## Exportación de `run_sql = db.run_sql` (archivo `src/db.py`)
+
+- **Qué es**:  
+  Se define un método interno `Database.run_sql(sql: str, params: dict = None) -> pandas.DataFrame` que:
+  1. Abre una conexión (`self.engine.connect()`).
+  2. Llama a `pd.read_sql_query(sql, conn, params)` para ejecutar la consulta y obtener un DataFrame.
+  3. Devuelve ese DataFrame con el resultado de la query.
+
+- **Cómo se usa**:  
+  ```python
+  from src.db import run_sql
+
+  df = run_sql(
+      "SELECT CustomerID, COUNT(*) AS total_sales FROM sales GROUP BY CustomerID",
+      params=None
+  )
+  print(df.head())
+
+## Pruebas Unitarias con pytest
+# Se implementaron dos archivos de prueba en la carpeta tests/, usando pytest:
+
+ 1. tests/test_singleton_db.py
+
+      * Verifica que Database() devuelva siempre la misma instancia (Singleton).
+      * Comprueba que la instancia global db es idéntica a Database()
+      * Asegura que engine y SessionLocal sean objetos únicos compartidos por todas las invocaciones.
+
+ 2. tests/test_sales_builder.py
+
+      * Prueba que, usando SalesBuilder y definiendo todos los campos obligatorios con set_*, se construya correctamente un objeto Sales con las propiedades asignadas.
+      * Verifica que, al omitir cualquier campo obligatorio, builder.build() lance ValueError mencionando los campos faltantes.
+
+# Cómo ejecutar las pruebas
+   * Desde la raíz del proyecto, con el entorno virtual activado:
+```bash
+pip install -r requirements.txt  # debe incluir pytest
+pytest -q
+```
+   *Pytest buscará automáticamente los archivos test_*.py en tests/ y emitirá un reporte con PASSED o FAILED para cada caso.
+
+## Seguridad con .env
+ # Propósito: Gestionar credenciales sensibles de conexión.
+ # Ejemplo de .env: (no son datos reales)
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=1234
+DB_NAME=proyecto_integrador
+
+
+# Protección: 
+   ✅ Se carga con python-decouple.
+   ✅ Se excluye del repositorio (.gitignore).
+   ✅ Se recomienda un .env.example sin datos reales.
+
+## Notebook de Integración (integracion_final.ipynb)
+# Propósito: Documentar la conexión, consultas SQL y pruebas unitarias en un entorno interactivo.
+# Incluye:
+   ✅ Validación de conexión (SELECT 1).
+   ✅ Ejecución de consultas SQL (SUBCONSULTAS SIMPLES, CORRELACIONADAS, NO CORRELACIONADAS, CTE, Window Functions).
+   ✅ Demostración de patrones de diseño (Singleton, Builder, Factory).
+   ✅ Ejecución de pruebas unitarias(pytest).
