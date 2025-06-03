@@ -185,7 +185,12 @@ DB_NAME=proyecto_integrador
 # Propósito: Documentar la conexión, consultas SQL y pruebas unitarias en un entorno interactivo.
 # Incluye:
   * Validación de conexión (SELECT 1).
-  * Ejecución de consultas SQL (SUBCONSULTAS SIMPLES, CORRELACIONADAS, NO CORRELACIONADAS, CTE, Window Functions).
+  * Ejecución de consultas SQL:
+       * SUBCONSULTAS SIMPLES
+       * SUBCONSULTAS CORRELACIONADAS
+       * SUBCONSULTAS NO CORRELACIONADAS
+       * CTE
+       * Window Functions
   * Demostración de patrones de diseño (Singleton, Builder, Factory).
   * Ejecución de pruebas unitarias(pytest).
 
