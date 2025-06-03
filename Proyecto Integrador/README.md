@@ -144,7 +144,7 @@ Durante la ejecución la pipeline:
   print(df.head())
 
 ## Pruebas Unitarias con pytest
-# Se implementaron dos archivos de prueba en la carpeta tests/, usando pytest:
+### Se implementaron dos archivos de prueba en la carpeta tests/, usando pytest:
 
  1. tests/test_singleton_db.py
 
@@ -157,7 +157,7 @@ Durante la ejecución la pipeline:
       * Prueba que, usando SalesBuilder y definiendo todos los campos obligatorios con set_*, se construya correctamente un objeto Sales con las propiedades asignadas.
       * Verifica que, al omitir cualquier campo obligatorio, builder.build() lance ValueError mencionando los campos faltantes.
 
-# Cómo ejecutar las pruebas
+### Cómo ejecutar las pruebas
    * Desde la raíz del proyecto, con el entorno virtual activado:
 ```bash
 pip install -r requirements.txt  # debe incluir pytest
@@ -166,23 +166,24 @@ pytest -q
    *Pytest buscará automáticamente los archivos test_*.py en tests/ y emitirá un reporte con PASSED o FAILED para cada caso.
 
 ## Seguridad con .env
- # Propósito: Gestionar credenciales sensibles de conexión.
- # Ejemplo de .env: (no son datos reales)
+ ### Propósito: Gestionar credenciales sensibles de conexión.
+ #### Ejemplo de .env: (no son datos reales)
+``` 
 DB_HOST=localhost
 DB_PORT=3306
 DB_USER=root
 DB_PASSWORD=1234
 DB_NAME=proyecto_integrador
+```
 
-
-# Protección: 
+### Protección: 
    ✅ Se carga con python-decouple.
    ✅ Se excluye del repositorio (.gitignore).
    ✅ Se recomienda un .env.example sin datos reales.
 
 ## Notebook de Integración (integracion_final.ipynb)
-# Propósito: Documentar la conexión, consultas SQL y pruebas unitarias en un entorno interactivo.
-# Incluye:
+### Propósito: Documentar la conexión, consultas SQL y pruebas unitarias en un entorno interactivo.
+### Incluye:
    ✅ Validación de conexión (SELECT 1).
    ✅ Ejecución de consultas SQL (SUBCONSULTAS SIMPLES, CORRELACIONADAS, NO CORRELACIONADAS, CTE, Window Functions).
    ✅ Demostración de patrones de diseño (Singleton, Builder, Factory).
