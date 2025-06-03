@@ -187,3 +187,59 @@ DB_NAME=proyecto_integrador
    ✅ Ejecución de consultas SQL (SUBCONSULTAS SIMPLES, CORRELACIONADAS, NO CORRELACIONADAS, CTE, Window Functions).
    ✅ Demostración de patrones de diseño (Singleton, Builder, Factory).
    ✅ Ejecución de pruebas unitarias(pytest).
+
+
+# Descripción del Notebook
+
+Este avance contiene ejemplos prácticos de consultas SQL, procedimientos almacenados, funciones de ventana, vistas, CTEs, Indices y triggers aplicados a una base de datos de ventas. A continuación se describen las funciones y procesos implementados en cada celda, dentro de avance_3.ipynb:
+
+---
+
+## 1. Mejores Vendedores (`vendedor_top`)
+Se utiliza una CTE (Common Table Expression) para identificar los vendedores que más ingresos generan. Se agrupan las ventas por `SalesPersonID`, se suman los ingresos y se obtienen los 5 vendedores principales junto con su nombre y apellido.
+
+---
+
+## 2. Ingreso por Mes (`ventas_total_mes`)
+Consulta una vista que muestra el ingreso total por mes, ordenando los resultados cronológicamente.
+
+---
+
+## 3. Función de Ventana (`ROW_NUMBER`)
+Se utiliza la función de ventana `ROW_NUMBER()` para asignar un número secuencial a cada fila, ordenadas por año y mes, sobre la vista de ventas mensuales.
+
+---
+
+## 4. Procedimiento Almacenado (`registro_productos`)
+Se ejecuta un procedimiento almacenado llamado `registro_productos` para agregar un nuevo producto ("Chocolinas") a la base de datos de productos.
+
+---
+
+## 5. Verificación de Inserción
+Se consulta la tabla de productos para verificar que el producto "Chocolinas" fue insertado correctamente.
+
+---
+
+## 6. Trigger de Seguridad (`TotalPrice`)
+Se describe y prueba un trigger de seguridad que valida que el campo `TotalPrice` en la tabla de ventas sea igual a `Quantity * Precio - Discount`. Si la validación falla, se genera un error para evitar registros incorrectos o fraudulentos.
+
+---
+
+## 7. Index 
+Se encuentra en la carpeta sql, donde se muestra la creación de un indice para la tabla Sales, el cual funciona con SalesDate y se aplica en la función de ventana para obtener de manera más rapida la tabla, y además implementando una optimización de consultas
+
+## Variables Importantes
+
+- **df_customers**: DataFrame de pandas que almacena los resultados de las consultas SQL ejecutadas.
+- **query**: Variable tipo string que contiene las sentencias SQL utilizadas en las distintas celdas.
+
+## Buenas practicas y optimización de consultas
+
+Las consultas realizadas contienen una serie de pautas para la optimización y la velocidad de consultas en el caso de que el sistema escale, donde se implemento lo siguiente:
+  * Joins explícitos
+  * Agrupación minima y necesaria
+  * Eliminación de subconsultas
+  * No se agregaron funciones de alto costo (en cuanto a rendimiento)
+  * Se creó un indice para la tabla Sales
+
+---

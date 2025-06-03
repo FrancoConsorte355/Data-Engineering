@@ -23,3 +23,5 @@ data/procesados/
 .vscode/
 .idea/
 
+pytest.ini
+temp_test.csv

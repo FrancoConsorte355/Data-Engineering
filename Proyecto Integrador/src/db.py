@@ -1,7 +1,8 @@
 # src/db.py
+
 import pandas as pd
 from decouple import config
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, declarative_base
 
 # Singleton para gestionar la conexión a la base de datos
@@ -28,7 +29,7 @@ class Database:
         # 3) Creación del engine (único en toda la app)
         self.engine = create_engine(
             url,
-            echo=False,       # True para ver SQL generado
+            echo=False,       # Cambiar a True para ver el SQL generado en consola
             future=True,
             pool_pre_ping=True
         )
@@ -46,9 +47,15 @@ class Database:
 
     def get_session(self):
         """
-        Devuelve un contexto de sesión para usar con `with`:
-            with db.get_session() as session:
-                ...
+        Devuelve un generador para un contexto de sesión de BD.
+        Uso:
+            sess_gen = db.get_session()
+            session = next(sess_gen)       # abre la sesión
+            ...  # usar session.execute(), session.add(), etc.
+            try:
+                next(sess_gen)             # cierra la sesión al terminar
+            except StopIteration:
+                pass
         """
         session = self.SessionLocal()
         try:
@@ -60,13 +67,26 @@ class Database:
         """
         Ejecuta una consulta SQL SELECT y devuelve un DataFrame de pandas.
 
-        :param sql: Consulta SQL a ejecutar.
-        :param params: Diccionario de parámetros para la consulta.
+        :param sql: Consulta SELECT a ejecutar.
+        :param params: Diccionario de parámetros (ej. {'id': 5}) para la query.
         :return: pd.DataFrame con los resultados.
         """
         with self.engine.connect() as conn:
-            df = pd.read_sql_query(sql, conn, params=params)
+            df = pd.read_sql_query(text(sql), conn, params=params or {})
         return df
+
+    def execute_sql(self, sql: str, params: dict = None) -> None:
+        """
+        Ejecuta un comando SQL de tipo DDL o DML (CREATE, INSERT, UPDATE, DELETE,
+        CALL de procedimientos almacenados, creación de índices o triggers).
+        No devuelve resultados; hace commit automáticamente si modifica datos.
+
+        :param sql: Sentencia SQL a ejecutar (puede ser CREATE PROCEDURE, CALL, CREATE INDEX, etc.).
+        :param params: Diccionario de parámetros para la sentencia.
+        """
+        with self.engine.connect() as conn:
+            with conn.begin():  # comienza transacción y hace commit si no hay error
+                conn.execute(text(sql), params or {})
 
 # Instancia global única
 db = Database()
@@ -76,7 +96,14 @@ engine       = db.engine
 SessionLocal = db.SessionLocal
 Base         = db.Base
 get_session  = db.get_session
-# Método para ejecución de consultas y retorno en DataFrame
+
+# Función para ejecutar SELECT y obtener DataFrame
 def run_sql(sql: str, params: dict = None) -> pd.DataFrame:
     return db.run_sql(sql, params)
+
+# Función para ejecutar DDL/DML sin retorno (procedimientos, triggers, índices, inserciones, etc.)
+def execute_sql(sql: str, params: dict = None) -> None:
+    db.execute_sql(sql, params)
+
+
 
