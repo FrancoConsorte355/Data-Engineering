@@ -5,7 +5,7 @@
 Ecowatch es una herramienta de línea de comandos para procesar y analizar logs ambientales de distintas salas. El sistema simula la recepción continua de datos desde un archivo CSV, los valida, los almacena en una caché de ventana temporal, y genera reportes tanto en consola como en formatos tabulares (CSV/Excel).
 
 ## Arquitectura y Organización de Código
-
+ ```
 ecowatch/                         ← raíz del proyecto
 ├── src/                          ← código fuente
 │   ├── __init__.py
@@ -48,7 +48,6 @@ ecowatch/                         ← raíz del proyecto
 │
 ├── tests/                        ← pruebas unitarias (pytest/unittest)
 │   ├── __init__.py
-│   │
 │   └── test_reports.py
 │
 ├── data/                         ← datos, simulacion de fuente de datos
@@ -62,7 +61,7 @@ ecowatch/                         ← raíz del proyecto
 ├── requirements.txt              ← dependencias
 ├── .env                          ← variables sensibles
 └── README.md                     ← overview del proyecto
-
+ ```
 * `src/ingestion/`: lectores de logs y validadores.
 * `src/cache/`: implementación de caché deslizante (`TemporalCache`).
 * `src/domain/`: modelos de datos (`Log`, `Sensor`, `Sala`).
@@ -122,8 +121,8 @@ Cada carpeta refleja una responsabilidad clara, facilitando mantenimiento y exte
 
 ## Futuros Trabajos
 
-* Desplegar un **API REST** (FastAPI) para servir reportes en JSON.
-* Integrar **monitoring** y métricas de uso con decorators de benchmarking.
+* Desplegar un **API REST** (FastAPI) para servir reportes en JSON.            ← No se llego
+* Integrar **monitoring** y métricas de uso con decorators de benchmarking.    ← No se llego
 * Añadir **nuevos formatos de entrada** (JSON, MQ) implementando `ReaderInterface`.
 * Expandir patrones (Decorator para caching extendido, Strategy para filtros de alertas).
 
@@ -133,7 +132,7 @@ Sigue estos pasos para preparar y ejecutar la aplicación, así como su suite de
 
 1. **Clonar el repositorio**
    ```bash
-   git clone <URL-del-repositorio>
+   git clone [<URL-del-repositorio>](https://github.com/FrancoConsorte355/Data-Engineering/tree/main/ecowatch)
    cd ecowatch
    ```
 
@@ -178,7 +177,7 @@ Sigue estos pasos para preparar y ejecutar la aplicación, así como su suite de
    - Para exportar, elige la opción CSV o Excel; los archivos quedarán en `exportacion_archivos/exportacion_CSV/` o `.../exportacion_EXCEL/`.
 
 6. **Ejecutar pruebas**
-   - **pytest** (test_ingest):
+   - **pytest** (test_ingest): ← No llegue a que funcionara
      ```bash
      # Asegúrate de incluir 'src' en PYTHONPATH:
      export PYTHONPATH=$(pwd)/src    # Unix/macOS
