@@ -16,16 +16,17 @@ Diseñar e implementar un sistema robusto que:
 
 ```
 ├── data
-│   ├── raw           # Archivos fuente (.csv, .json)
-│   └── processed     # Archivos transformados y listos para cargar
-├── sql               # Scripts SQL para carga y preparación de tablas
-│   └── load_data.sql
-├── src               # Código fuente
-│   ├── config.py     # Variables de entorno y configuración general
-│   ├── db.py         # Conexión y sesión con la base de datos MySQL
-│   ├── ingestion     # Lectura de archivos y carga en memoria
+│   ├── raw                     # Archivos fuente (.csv, .json)
+│   └── processed               # Archivos transformados y listos para cargar
+├── sql               
+     ├── createDB.sql           # Scripts SQL para creación de la base de datos y tablas
+     └── load_data.sql          # Scripts SQL para carga y preparación de tablas (Excepto sales)
+├── src                         # Código fuente
+│   ├── config.py               # Variables de entorno y configuración general
+│   ├── db.py                   # Conexión y sesión con la base de datos MySQL
+│   ├── ingestion               # Lectura de archivos y carga en memoria
 │   │   └── lector.py
-│   ├── models        # Definición de entidades y mapeo ORM
+│   ├── models                  # Definición de entidades y mapeo ORM
 │   │   ├── categories.py
 │   │   ├── cities.py
 │   │   ├── countries.py
@@ -33,14 +34,14 @@ Diseñar e implementar un sistema robusto que:
 │   │   ├── employees.py
 │   │   ├── products.py
 │   │   └── sales.py
-│   ├── processing    # Lógica de transformación y gestión de ventas
+│   ├── processing               # Lógica de transformación y gestión de ventas
 │   │   └── sales_manager.py
-│   └── tests         # Pruebas unitarias con pytest
-├── venv              # Entorno virtual (no versionar)
-├── .env              # Variables de entorno (credenciales, configuraciones)
-├── requirements.txt  # Lista de dependencias del proyecto
-├── run_pipeline.py   # Script principal que orquesta la pipeline de datos
-└── test_db_connection.py  # Verificación de conectividad a la base de datos
+│   └── tests                    # Pruebas unitarias con pytest
+├── venv                         # Entorno virtual (no versionar)
+├── .env                         # Variables de entorno (credenciales, configuraciones)
+├── requirements.txt             # Lista de dependencias del proyecto
+├── run_pipeline.py              # Script principal que orquesta la pipeline de datos
+└── test_db_connection.py        # Verificación de conectividad a la base de datos
 ```
 
 ## Preparación del Entorno Virtual
