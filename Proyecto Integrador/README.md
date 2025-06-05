@@ -234,7 +234,7 @@ Cada excepción está diseñada para proporcionar información precisa al usuari
 ### Cómo ejecutar las pruebas
    * Desde la raíz del proyecto, con el entorno virtual activado:
 ```bash
-pip install -r requirements.txt  # debe incluir pytest
+pip install -r requirements.txt 
 pytest -q
 ```
    *Pytest buscará automáticamente los archivos test_*.py en tests/ y emitirá un reporte con PASSED o FAILED para cada caso.
