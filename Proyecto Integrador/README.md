@@ -159,7 +159,7 @@ Este documento describe los mecanismos implementados para gestionar errores dura
 - Se verifica que el **argumento de extensión** no sea vacío ni `None` antes de compararlo.
 - Se proporciona un **mensaje de error detallado** con las **extensiones admitidas** (`.csv` y `.json`).
 
-## 🛠️ 5. Mensajes claros y consistentes
+##  5. Mensajes claros y consistentes
 Cada excepción está diseñada para proporcionar información precisa al usuario, asegurando transparencia en los errores detectados. Se reportan los siguientes casos:
 - La carpeta de datos no existe** o no se pudo crear.  
 - Un archivo concreto no está presente** en el directorio.  
