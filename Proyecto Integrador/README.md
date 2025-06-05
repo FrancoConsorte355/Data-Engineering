@@ -161,11 +161,11 @@ Este documento describe los mecanismos implementados para gestionar errores dura
 
 ## 🛠️ 5. Mensajes claros y consistentes
 Cada excepción está diseñada para proporcionar información precisa al usuario, asegurando transparencia en los errores detectados. Se reportan los siguientes casos:
- **La carpeta de datos no existe** o no se pudo crear.  
- **Un archivo concreto no está presente** en el directorio.  
- **La extensión del archivo no es válida** (debe ser `.csv` o `.json`).  
- **El archivo tiene formato incorrecto** (JSON mal formado, CSV corrupto, etc.).  
- **Falta de permisos** para acceder al sistema de archivos.  
+- La carpeta de datos no existe** o no se pudo crear.  
+- Un archivo concreto no está presente** en el directorio.  
+- La extensión del archivo no es válida** (debe ser `.csv` o `.json`).  
+- El archivo tiene formato incorrecto** (JSON mal formado, CSV corrupto, etc.).  
+- Falta de permisos para acceder al sistema de archivos.  
 
 ---
 
