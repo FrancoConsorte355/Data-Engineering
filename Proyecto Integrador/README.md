@@ -10,7 +10,7 @@ Diseñar e implementar un sistema robusto que:
 * Modele la lógica en Python empleando Programación Orientada a Objetos.
 * Aplique patrones de diseño para mejorar la escalabilidad y mantenibilidad del software.
 
-## Avance 1
+# Avance 1
 
 ## Estructura del Proyecto
 
@@ -169,7 +169,7 @@ Cada excepción está diseñada para proporcionar información precisa al usuari
 
 ---
 
-## Avance 2
+# Avance 2
 
 ## Patrones de Diseño Implementados
 
@@ -267,8 +267,8 @@ DB_NAME=proyecto_integrador
 * Se recomienda un .env.example sin datos reales.
 
 ## Notebook de Integración (anvance_2.ipynb)
-# Propósito: Documentar la conexión, consultas SQL y pruebas unitarias en un entorno interactivo.
-# Incluye:
+## Propósito: Documentar la conexión, consultas SQL y pruebas unitarias en un entorno interactivo.
+## Incluye:
   * Validación de conexión (SELECT 1).
   * Ejecución de consultas SQL:
        * SUBCONSULTAS SIMPLES
@@ -279,8 +279,8 @@ DB_NAME=proyecto_integrador
   * Demostración de patrones de diseño (Singleton, Builder, Factory).
   * Ejecución de pruebas unitarias(pytest).
 
-
-# Descripción del Notebook
+# Avance 3
+## Notebook de Integración (anvance_3.ipynb)
 
 Este avance contiene ejemplos prácticos de consultas SQL, procedimientos almacenados, funciones de ventana, vistas, CTEs, Indices y triggers aplicados a una base de datos de ventas. A continuación se describen las funciones y procesos implementados en cada celda, dentro de avance_3.ipynb:
 
