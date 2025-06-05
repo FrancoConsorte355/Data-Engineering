@@ -35,9 +35,6 @@ Diseñar e implementar un sistema robusto que:
 
 <<<<<<< HEAD
 ---
-
-=======
->>>>>>> ab8456887300114ab80250b3f69e78bfdc963116
 # Avance 1
 
 ## Estructura del Proyecto
@@ -165,7 +162,6 @@ Durante la ejecución, la pipeline:
 - Al concluir, mostrará un resumen de tiempos y un mensaje de "Pipeline completada".
 - Los datos de "sales" son cargados correctamente a la base de datos en MySQL.
 
-<<<<<<< HEAD
 ---
 
 ## Manejo de Errores en la Ingestión y Validación de Datos
@@ -179,7 +175,6 @@ Este documento describe los mecanismos implementados para gestionar errores dura
 
 ### 2. Manejo de errores en `listar_archivos`
 
-=======
 ## Manejo de Errores en la Ingestión y Validación de Datos
 
 Este documento describe los mecanismos implementados para gestionar errores durante la **ingestión y validación de archivos** dentro del sistema, asegurando una ejecución robusta y proporcionando mensajes de error claros al usuario.
@@ -190,12 +185,11 @@ Este documento describe los mecanismos implementados para gestionar errores dura
 - En caso de fallo, se lanza `RuntimeError` con información detallada sobre el problema al crear o leer la carpeta.
 
 ##  2. Manejo de errores en `listar_archivos`
->>>>>>> ab8456887300114ab80250b3f69e78bfdc963116
 - Se capturan excepciones específicas:
   - `FileNotFoundError` → Si la carpeta no existe.
   - `PermissionError` → Si el usuario no tiene permisos de lectura.
   - `Exception` (genérico) → Para errores inesperados.
-<<<<<<< HEAD
+
 - Cada error incluye un mensaje claro indicando:
   - Qué carpeta se intentó acceder.
   - Por qué falló la operación.
@@ -226,7 +220,7 @@ Cada excepción está diseñada para proporcionar información precisa al usuari
 - La extensión del archivo no es válida (debe ser `.csv` o `.json`).
 - El archivo tiene formato incorrecto (JSON mal formado, CSV corrupto, etc.).
 - Falta de permisos para acceder al sistema de archivos.
-=======
+
 - **Cada error incluye un mensaje claro** indicando:
   - Qué carpeta se intentó acceder.
   - Por qué falló la operación.
@@ -253,7 +247,6 @@ Cada excepción está diseñada para proporcionar información precisa al usuari
 - La extensión del archivo no es válida** (debe ser `.csv` o `.json`).  
 - El archivo tiene formato incorrecto** (JSON mal formado, CSV corrupto, etc.).  
 - Falta de permisos para acceder al sistema de archivos.  
->>>>>>> ab8456887300114ab80250b3f69e78bfdc963116
 
 ---
 
@@ -269,7 +262,6 @@ Cada excepción está diseñada para proporcionar información precisa al usuari
   - Si no existe, se crea, se invoca `_setup()` para inicializar el `engine`, la fábrica de sesiones (`SessionLocal`) y la base declarativa (`Base`).
   - Todas las llamadas posteriores a `Database()` devuelven la misma instancia compartida.
 
-<<<<<<< HEAD
 - **Beneficios:**
   1. Uso único de recursos: Se evitan múltiples conexiones innecesarias a la base de datos y se optimiza el pool de conexiones.
   2. Configuración centralizada: Cualquier cambio en la configuración se hace en un solo lugar.
@@ -279,11 +271,9 @@ Cada excepción está diseñada para proporcionar información precisa al usuari
   1. **Uso único de recursos**: Al reutilizar el mismo `engine` y las mismas configuraciones de conexión, se evitan múltiples conexiones innecesarias a la base de datos y se optimiza el pool de conexiones.  
   2. **Configuración centralizada**: Cualquier cambio en la URL de conexión, pool de conexiones o parámetros de SQLAlchemy se hace en un solo lugar, y todas las partes del sistema usan esa misma configuración.  
   3. **Evita inconsistencias**: No existe el riesgo de tener instancias duplicadas apuntando a URIs o credenciales diferentes, porque siempre se instancia el mismo objeto.
->>>>>>> ab8456887300114ab80250b3f69e78bfdc963116
 
 ---
 
-<<<<<<< HEAD
 ### 2. Builder (`src/models/sales.py`)
 
 - **Funcionalidad:**  
@@ -311,12 +301,11 @@ Cada excepción está diseñada para proporcionar información precisa al usuari
   1. Extensibilidad sencilla: Agregar soporte para nuevos formatos es simple.
   2. Separación de responsabilidades: Cada clase concreta se encarga de su propio formato.
   3. Código desacoplado y fácil de mantener.
-=======
+
 - **Beneficios**:  
   1. **Fácil extensión**: Si en el futuro se añade un campo nuevo a la tabla `sales` (por ejemplo `payment_method`, `promo_code`, etc.), basta con agregar un método `set_payment_method(...)` en `SalesBuilder` sin modificar el constructor original de `Sales`. El consumidor del Builder no se ve obligado a cambiar la firma de `Sales(...)`.  
   2. **Separación de responsabilidades**: La lógica de construcción (validación de campos, valores por defecto, etc.) queda aislada en `SalesBuilder`, mientras que la clase `Sales` se mantiene limpia, con solo mapeo ORM y su propia lógica de negocio (por ejemplo `calcular_total()`).  
   3. **Lectura clara y encadenada**: El código que crea ventas en el pipeline queda más legible, al encadenar `builder.set_...().set_...().build()` en lugar de pasar un montón de parámetros posicionales o diccionarios sueltos.
->>>>>>> ab8456887300114ab80250b3f69e78bfdc963116
 
 ### 3. Factory Method (archivo src/ingestion/lector.py)
 - **Funcionalidad**:
@@ -393,7 +382,6 @@ DB_NAME=proyecto_integrador
 
 **Protección:**
 
-<<<<<<< HEAD
 - Se carga con `python-decouple`.
 - Se excluye del repositorio (`.gitignore`).
 - Se recomienda un `.env.example` sin datos reales.
@@ -415,7 +403,6 @@ DB_NAME=proyecto_integrador
 ## Notebook de Integración (anvance_3.ipynb)
 
 Este avance contiene ejemplos prácticos de consultas SQL, procedimientos almacenados, funciones de ventana, vistas, CTEs, Indices y triggers aplicados a una base de datos de ventas. A continuación se describen las funciones y procesos implementados en cada celda, dentro de avance_3.ipynb:
->>>>>>> ab8456887300114ab80250b3f69e78bfdc963116
 
 ---
 
