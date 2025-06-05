@@ -10,5 +10,5 @@ Cada carpeta contiene un conjunto de tareas y proyectos diseñados para fortalec
 - **🎯 Proyecto Integrador** → Proyecto Final, presentado al finalizar el curso.  
 
 ## 📌 Notas adicionales  
-Este repositorio es una herramienta clave para el aprendizaje y desarrollo. ¡No dudes en explorarlo y sacarle el máximo provecho! 💡  
+Este repositorio es una herramienta clave para el aprendizaje y desarrollo.💡  
 ---
