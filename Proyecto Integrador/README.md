@@ -126,17 +126,14 @@ Durante la ejecución la pipeline:
 * Al concluir, mostrará un resumen de tiempos y un mensaje de "Pipeline completada".
 * Los datos de "sales", son cargados de manera correcta a la base de datos en MySQL.
 
-# Manejo de Errores en la Ingestión y Validación de Datos
+## Manejo de Errores en la Ingestión y Validación de Datos
 
 Este documento describe los mecanismos implementados para gestionar errores durante la **ingestión y validación de archivos** dentro del sistema, asegurando una ejecución robusta y proporcionando mensajes de error claros al usuario.
 
 ---
-
 ##  1. Verificación de existencia/permisos de carpeta
 - En el constructor de `LectorDatos`, se envuelve `os.makedirs` en un bloque `try/except` para **manejar errores de permiso o rutas inválidas**.
 - En caso de fallo, se lanza `RuntimeError` con información detallada sobre el problema al crear o leer la carpeta.
-
----
 
 ##  2. Manejo de errores en `listar_archivos`
 - Se capturan excepciones específicas:
@@ -146,8 +143,6 @@ Este documento describe los mecanismos implementados para gestionar errores dura
 - **Cada error incluye un mensaje claro** indicando:
   - Qué carpeta se intentó acceder.
   - Por qué falló la operación.
-
----
 
 ##  3. Manejo de errores en `cargar`
 - Se comprueba la **existencia del archivo** con `os.path.isfile`. Si no existe, se lanza `FileNotFoundError`.
@@ -160,13 +155,9 @@ Este documento describe los mecanismos implementados para gestionar errores dura
   - Si existe, se intenta transformar a `datetime`.
   - Si la conversión falla, se imprime una **advertencia** (`⚠️ Advertencia`), pero no se bloquea la carga del archivo.
 
----
-
 ##  4. Validación de extensión en `LectorFactory`
 - Se verifica que el **argumento de extensión** no sea vacío ni `None` antes de compararlo.
 - Se proporciona un **mensaje de error detallado** con las **extensiones admitidas** (`.csv` y `.json`).
-
----
 
 ## 🛠️ 5. Mensajes claros y consistentes
 Cada excepción está diseñada para proporcionar información precisa al usuario, asegurando transparencia en los errores detectados. Se reportan los siguientes casos:
