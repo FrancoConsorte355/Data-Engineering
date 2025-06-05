@@ -266,7 +266,7 @@ DB_NAME=proyecto_integrador
 * Se excluye del repositorio (.gitignore).
 * Se recomienda un .env.example sin datos reales.
 
-## Notebook de Integración (integracion_final.ipynb)
+## Notebook de Integración (anvance_2.ipynb)
 # Propósito: Documentar la conexión, consultas SQL y pruebas unitarias en un entorno interactivo.
 # Incluye:
   * Validación de conexión (SELECT 1).
