@@ -64,8 +64,8 @@ Diseñar e implementar un sistema robusto que:
 ├── venv                         # Entorno virtual (no versionar)
 ├── .env                         # Variables de entorno (credenciales, configuraciones)
 ├── requirements.txt             # Lista de dependencias del proyecto
-├── run_pipeline.py              # Script principal que orquesta la pipeline de datos
-└── test_db_connection.py        # Verificación de conectividad a la base de datos
+└── run_pipeline.py              # Script principal que orquesta la pipeline de datos
+
 ```
 
 ---
