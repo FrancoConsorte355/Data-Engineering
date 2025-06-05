@@ -33,7 +33,6 @@ Diseñar e implementar un sistema robusto que:
 - Modele la lógica en Python empleando Programación Orientada a Objetos.
 - Aplique patrones de diseño para mejorar la escalabilidad y mantenibilidad del software.
 
-<<<<<<< HEAD
 ---
 # Avance 1
 
