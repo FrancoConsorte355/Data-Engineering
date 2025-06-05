@@ -124,6 +124,7 @@ Durante la ejecución la pipeline:
 * Informará conteo de valores nulos y tipos de datos por columna.
 * Indicará uso de memoria y tiempos parciales de archivado, procesamiento y total.
 * Al concluir, mostrará un resumen de tiempos y un mensaje de "Pipeline completada".
+* Los datos de "sales", son cargados de manera correcta a la base de datos en MySQL.
 
 
 ## Avance 2
