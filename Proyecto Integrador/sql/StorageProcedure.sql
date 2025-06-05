@@ -51,6 +51,16 @@ END;
 
 DELIMITER ;
 
-CALL registro_productos(9999,'Dulce de leche',20,5,'Low','2024-04-02','Durable','Unknown',200);
-select * from products
-where ProductName='Dulce de leche';
+CALL registro_productos(
+    9998,
+    'Chocolinas',
+    200,
+    5,
+    'Low',
+    '2024-06-02',
+    'Durable',
+    'Unknown',
+    200
+);
+select ProductID, ProductName, Price from products
+where ProductName='Chocolinas';

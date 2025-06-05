@@ -9,5 +9,5 @@ GROUP BY
   YEAR(SalesDate),
   MONTH(SalesDate);
   
-SELECT * FROM ventas_total_mes
+SELECT Mes, TotalMensual FROM ventas_total_mes
 ORDER BY Mes ASC;
