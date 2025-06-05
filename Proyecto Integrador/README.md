@@ -33,24 +33,28 @@ Diseñar e implementar un sistema robusto que:
 - Modele la lógica en Python empleando Programación Orientada a Objetos.
 - Aplique patrones de diseño para mejorar la escalabilidad y mantenibilidad del software.
 
+<<<<<<< HEAD
 ---
 
+=======
+>>>>>>> ab8456887300114ab80250b3f69e78bfdc963116
 # Avance 1
 
 ## Estructura del Proyecto
 
 ```plaintext
 ├── data
-│   ├── raw           # Archivos fuente (.csv, .json)
-│   └── processed     # Archivos transformados y listos para cargar
-├── sql               # Scripts SQL para carga y preparación de tablas
-│   └── load_data.sql
-├── src               # Código fuente
-│   ├── config.py     # Variables de entorno y configuración general
-│   ├── db.py         # Conexión y sesión con la base de datos MySQL
-│   ├── ingestion     # Lectura de archivos y carga en memoria
+│   ├── raw                     # Archivos fuente (.csv, .json)
+│   └── processed               # Archivos transformados y listos para cargar
+├── sql               
+│   ├── createDB.sql           # Scripts SQL para creación de la base de datos y tablas
+│   └── load_data.sql          # Scripts SQL para carga y preparación de tablas (Excepto sales)
+├── src                         # Código fuente
+│   ├── config.py               # Variables de entorno y configuración general
+│   ├── db.py                   # Conexión y sesión con la base de datos MySQL
+│   ├── ingestion               # Lectura de archivos y carga en memoria
 │   │   └── lector.py
-│   ├── models        # Definición de entidades y mapeo ORM
+│   ├── models                  # Definición de entidades y mapeo ORM
 │   │   ├── categories.py
 │   │   ├── cities.py
 │   │   ├── countries.py
@@ -58,14 +62,14 @@ Diseñar e implementar un sistema robusto que:
 │   │   ├── employees.py
 │   │   ├── products.py
 │   │   └── sales.py
-│   ├── processing    # Lógica de transformación y gestión de ventas
+│   ├── processing               # Lógica de transformación y gestión de ventas
 │   │   └── sales_manager.py
-│   └── tests         # Pruebas unitarias con pytest
-├── venv              # Entorno virtual (no versionar)
-├── .env              # Variables de entorno (credenciales, configuraciones)
-├── requirements.txt  # Lista de dependencias del proyecto
-├── run_pipeline.py   # Script principal que orquesta la pipeline de datos
-└── test_db_connection.py  # Verificación de conectividad a la base de datos
+│   └── tests                    # Pruebas unitarias con pytest
+├── venv                         # Entorno virtual (no versionar)
+├── .env                         # Variables de entorno (credenciales, configuraciones)
+├── requirements.txt             # Lista de dependencias del proyecto
+├── run_pipeline.py              # Script principal que orquesta la pipeline de datos
+└── test_db_connection.py        # Verificación de conectividad a la base de datos
 ```
 
 ---
@@ -161,6 +165,7 @@ Durante la ejecución, la pipeline:
 - Al concluir, mostrará un resumen de tiempos y un mensaje de "Pipeline completada".
 - Los datos de "sales" son cargados correctamente a la base de datos en MySQL.
 
+<<<<<<< HEAD
 ---
 
 ## Manejo de Errores en la Ingestión y Validación de Datos
@@ -174,10 +179,23 @@ Este documento describe los mecanismos implementados para gestionar errores dura
 
 ### 2. Manejo de errores en `listar_archivos`
 
+=======
+## Manejo de Errores en la Ingestión y Validación de Datos
+
+Este documento describe los mecanismos implementados para gestionar errores durante la **ingestión y validación de archivos** dentro del sistema, asegurando una ejecución robusta y proporcionando mensajes de error claros al usuario.
+
+---
+##  1. Verificación de existencia/permisos de carpeta
+- En el constructor de `LectorDatos`, se envuelve `os.makedirs` en un bloque `try/except` para **manejar errores de permiso o rutas inválidas**.
+- En caso de fallo, se lanza `RuntimeError` con información detallada sobre el problema al crear o leer la carpeta.
+
+##  2. Manejo de errores en `listar_archivos`
+>>>>>>> ab8456887300114ab80250b3f69e78bfdc963116
 - Se capturan excepciones específicas:
   - `FileNotFoundError` → Si la carpeta no existe.
   - `PermissionError` → Si el usuario no tiene permisos de lectura.
   - `Exception` (genérico) → Para errores inesperados.
+<<<<<<< HEAD
 - Cada error incluye un mensaje claro indicando:
   - Qué carpeta se intentó acceder.
   - Por qué falló la operación.
@@ -208,6 +226,34 @@ Cada excepción está diseñada para proporcionar información precisa al usuari
 - La extensión del archivo no es válida (debe ser `.csv` o `.json`).
 - El archivo tiene formato incorrecto (JSON mal formado, CSV corrupto, etc.).
 - Falta de permisos para acceder al sistema de archivos.
+=======
+- **Cada error incluye un mensaje claro** indicando:
+  - Qué carpeta se intentó acceder.
+  - Por qué falló la operación.
+
+##  3. Manejo de errores en `cargar`
+- Se comprueba la **existencia del archivo** con `os.path.isfile`. Si no existe, se lanza `FileNotFoundError`.
+- **Validación de extensión**: Se restringe la carga solo a `.csv` o `.json`, lanzando `ValueError` si la extensión no es válida.
+- **Gestión de errores específicos** en `pd.read_csv` y `pd.read_json`:
+  - `EmptyDataError / ValueError` → Si el formato es incorrecto o corrupto.
+  - `PermissionError` → Si el usuario no tiene permisos de acceso.
+  - `Exception` → Para errores inesperados.
+- **Conversión de columna `fecha`**:
+  - Si existe, se intenta transformar a `datetime`.
+  - Si la conversión falla, se imprime una **advertencia** (`⚠️ Advertencia`), pero no se bloquea la carga del archivo.
+
+##  4. Validación de extensión en `LectorFactory`
+- Se verifica que el **argumento de extensión** no sea vacío ni `None` antes de compararlo.
+- Se proporciona un **mensaje de error detallado** con las **extensiones admitidas** (`.csv` y `.json`).
+
+##  5. Mensajes claros y consistentes
+Cada excepción está diseñada para proporcionar información precisa al usuario, asegurando transparencia en los errores detectados. Se reportan los siguientes casos:
+- La carpeta de datos no existe** o no se pudo crear.  
+- Un archivo concreto no está presente** en el directorio.  
+- La extensión del archivo no es válida** (debe ser `.csv` o `.json`).  
+- El archivo tiene formato incorrecto** (JSON mal formado, CSV corrupto, etc.).  
+- Falta de permisos para acceder al sistema de archivos.  
+>>>>>>> ab8456887300114ab80250b3f69e78bfdc963116
 
 ---
 
@@ -223,13 +269,21 @@ Cada excepción está diseñada para proporcionar información precisa al usuari
   - Si no existe, se crea, se invoca `_setup()` para inicializar el `engine`, la fábrica de sesiones (`SessionLocal`) y la base declarativa (`Base`).
   - Todas las llamadas posteriores a `Database()` devuelven la misma instancia compartida.
 
+<<<<<<< HEAD
 - **Beneficios:**
   1. Uso único de recursos: Se evitan múltiples conexiones innecesarias a la base de datos y se optimiza el pool de conexiones.
   2. Configuración centralizada: Cualquier cambio en la configuración se hace en un solo lugar.
   3. Evita inconsistencias: Siempre se instancia el mismo objeto.
+=======
+- **Beneficios**:  
+  1. **Uso único de recursos**: Al reutilizar el mismo `engine` y las mismas configuraciones de conexión, se evitan múltiples conexiones innecesarias a la base de datos y se optimiza el pool de conexiones.  
+  2. **Configuración centralizada**: Cualquier cambio en la URL de conexión, pool de conexiones o parámetros de SQLAlchemy se hace en un solo lugar, y todas las partes del sistema usan esa misma configuración.  
+  3. **Evita inconsistencias**: No existe el riesgo de tener instancias duplicadas apuntando a URIs o credenciales diferentes, porque siempre se instancia el mismo objeto.
+>>>>>>> ab8456887300114ab80250b3f69e78bfdc963116
 
 ---
 
+<<<<<<< HEAD
 ### 2. Builder (`src/models/sales.py`)
 
 - **Funcionalidad:**  
@@ -257,6 +311,24 @@ Cada excepción está diseñada para proporcionar información precisa al usuari
   1. Extensibilidad sencilla: Agregar soporte para nuevos formatos es simple.
   2. Separación de responsabilidades: Cada clase concreta se encarga de su propio formato.
   3. Código desacoplado y fácil de mantener.
+=======
+- **Beneficios**:  
+  1. **Fácil extensión**: Si en el futuro se añade un campo nuevo a la tabla `sales` (por ejemplo `payment_method`, `promo_code`, etc.), basta con agregar un método `set_payment_method(...)` en `SalesBuilder` sin modificar el constructor original de `Sales`. El consumidor del Builder no se ve obligado a cambiar la firma de `Sales(...)`.  
+  2. **Separación de responsabilidades**: La lógica de construcción (validación de campos, valores por defecto, etc.) queda aislada en `SalesBuilder`, mientras que la clase `Sales` se mantiene limpia, con solo mapeo ORM y su propia lógica de negocio (por ejemplo `calcular_total()`).  
+  3. **Lectura clara y encadenada**: El código que crea ventas en el pipeline queda más legible, al encadenar `builder.set_...().set_...().build()` en lugar de pasar un montón de parámetros posicionales o diccionarios sueltos.
+>>>>>>> ab8456887300114ab80250b3f69e78bfdc963116
+
+### 3. Factory Method (archivo src/ingestion/lector.py)
+- **Funcionalidad**:
+  El patrón Factory Method permite seleccionar dinámicamente el lector adecuado según la extensión del archivo de entrada (CSV o JSON).
+   - En LectorFactory.get_lector(ext), se recibe la extensión del archivo (.csv o .json).
+   - Si la extensión es .csv, devuelve una instancia de LectorCSV; si es .json, devuelve una instancia de LectorJSON.
+   - En caso de una extensión distinta, lanza ValueError indicando que el formato no está soportado.
+
+- **Beneficios**: 
+   1. **Extensibilidad sencilla**: Para soportar un nuevo formato (por ejemplo, XML), basta con agregar una clase LectorXML y extender get_lector() para reconocer .xml, sin modificar la lógica de carga existente.
+   2. **Separación de responsabilidades**: La lógica de “qué lector usar” queda centralizada en LectorFactory, mientras que cada clase concreta (LectorCSV o LectorJSON) solo se encarga de leer y parsear su propio formato.
+   3. **Código desacoplado y fácil de mantener**: Los módulos que consumen archivos (por ejemplo, la pipeline) solo llaman a get_lector(ext) sin preocuparse por detalles internos de lectura. Si en el futuro cambian los requisitos de validación de un formato, solo se ajusta la clase específica, sin tocar el resto de la aplicación.
 
 ---
 
@@ -321,9 +393,29 @@ DB_NAME=proyecto_integrador
 
 **Protección:**
 
+<<<<<<< HEAD
 - Se carga con `python-decouple`.
 - Se excluye del repositorio (`.gitignore`).
 - Se recomienda un `.env.example` sin datos reales.
+=======
+## Notebook de Integración (anvance_2.ipynb)
+## Propósito: Documentar la conexión, consultas SQL y pruebas unitarias en un entorno interactivo.
+## Incluye:
+  * Validación de conexión (SELECT 1).
+  * Ejecución de consultas SQL:
+       * SUBCONSULTAS SIMPLES
+       * SUBCONSULTAS CORRELACIONADAS
+       * SUBCONSULTAS NO CORRELACIONADAS
+       * CTE
+       * Window Functions
+  * Demostración de patrones de diseño (Singleton, Builder, Factory).
+  * Ejecución de pruebas unitarias(pytest).
+
+# Avance 3
+## Notebook de Integración (anvance_3.ipynb)
+
+Este avance contiene ejemplos prácticos de consultas SQL, procedimientos almacenados, funciones de ventana, vistas, CTEs, Indices y triggers aplicados a una base de datos de ventas. A continuación se describen las funciones y procesos implementados en cada celda, dentro de avance_3.ipynb:
+>>>>>>> ab8456887300114ab80250b3f69e78bfdc963116
 
 ---
 
