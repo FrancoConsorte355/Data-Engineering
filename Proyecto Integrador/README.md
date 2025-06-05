@@ -139,9 +139,9 @@ Durante la ejecución la pipeline:
  * Se comprueba que el archivo exista (os.path.isfile). Si no existe, se lanza FileNotFoundError.
  * Se valida la extensión (.csv o .json). Si el usuario pasa otra cosa, se lanza ValueError con detalle de la extensión esperada.
  * Los bloques try/except alrededor de pd.read_csv o pd.read_json detectan errores específicos:
-       * EmptyDataError / ValueError al parsear el formato.
-       * PermissionError si no hay permisos.
-       * Un except Exception genérico para mensajes imprevistos.
+           * EmptyDataError / ValueError al parsear el formato.
+           * PermissionError si no hay permisos.
+           * Un except Exception genérico para mensajes imprevistos.
  * Si existe columna fecha, se intenta convertir a datetime. Si falla, se imprime un aviso con “⚠️ Advertencia” pero no se detiene la carga (ya que la ausencia de conversión de fecha podría no ser crítica).
 
 4.Validación de extensión en LectorFactory
