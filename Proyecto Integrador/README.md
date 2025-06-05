@@ -65,18 +65,49 @@ Diseñar e implementar un sistema robusto que:
 
 ## Dependencias (requirements.txt)
 
+* asttokens==3.0.0
+* colorama==0.4.6
+* comm==0.2.2
+* debugpy==1.8.14
+* decorator==5.2.1
+* executing==2.2.0
 * greenlet==3.2.2
+* iniconfig==2.1.0
+* ipykernel==6.29.5
+* ipython==9.2.0
+* ipython_pygments_lexers==1.1.1
+* jedi==0.19.2
+* jupyter_client==8.6.3
+* jupyter_core==5.8.1
+* matplotlib-inline==0.1.7
 * mysql-connector-python==9.3.0
+* nest-asyncio==1.6.0
 * numpy==2.2.6
+* packaging==25.0
 * pandas==2.2.3
+* parso==0.8.4
+* platformdirs==4.3.8
+* pluggy==1.6.0
+* prompt_toolkit==3.0.51
+* psutil==7.0.0
+* pure_eval==0.2.3
+* Pygments==2.19.1
+* pytest==8.3.5
 * python-dateutil==2.9.0.post0
 * python-decouple==3.8
 * python-dotenv==1.1.0
 * pytz==2025.2
+* pywin32==310
+* pyzmq==26.4.0
 * six==1.17.0
 * SQLAlchemy==2.0.41
-* typing\_extensions==4.13.2
+* stack-data==0.6.3
+* tornado==6.5.1
+* traitlets==5.14.3
+* typing_extensions==4.13.2
 * tzdata==2025.2
+* wcwidth==0.2.13
+
 
 ## Ejecución de la Aplicación
 
@@ -93,6 +124,7 @@ Durante la ejecución la pipeline:
 * Informará conteo de valores nulos y tipos de datos por columna.
 * Indicará uso de memoria y tiempos parciales de archivado, procesamiento y total.
 * Al concluir, mostrará un resumen de tiempos y un mensaje de "Pipeline completada".
+* Los datos de "sales", son cargados de manera correcta a la base de datos en MySQL.
 
 
 ## Avance 2
@@ -184,10 +216,15 @@ DB_NAME=proyecto_integrador
 ## Notebook de Integración (integracion_final.ipynb)
 # Propósito: Documentar la conexión, consultas SQL y pruebas unitarias en un entorno interactivo.
 # Incluye:
-   ✅ Validación de conexión (SELECT 1).
-   ✅ Ejecución de consultas SQL (SUBCONSULTAS SIMPLES, CORRELACIONADAS, NO CORRELACIONADAS, CTE, Window Functions).
-   ✅ Demostración de patrones de diseño (Singleton, Builder, Factory).
-   ✅ Ejecución de pruebas unitarias(pytest).
+  * Validación de conexión (SELECT 1).
+  * Ejecución de consultas SQL:
+       * SUBCONSULTAS SIMPLES
+       * SUBCONSULTAS CORRELACIONADAS
+       * SUBCONSULTAS NO CORRELACIONADAS
+       * CTE
+       * Window Functions
+  * Demostración de patrones de diseño (Singleton, Builder, Factory).
+  * Ejecución de pruebas unitarias(pytest).
 
 
 # Descripción del Notebook
