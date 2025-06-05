@@ -126,36 +126,57 @@ Durante la ejecución la pipeline:
 * Al concluir, mostrará un resumen de tiempos y un mensaje de "Pipeline completada".
 * Los datos de "sales", son cargados de manera correcta a la base de datos en MySQL.
 
-## Manejo de errores en la ingestión y validación
-1.Verificación de existencia/permiso de carpeta
- * En el constructor de LectorDatos, se envolvió os.makedirs en un bloque try/except para atrapar errores de permiso o rutas inválidas.
- * Si hay un fallo, se lanza RuntimeError informando que no se pudo crear/leer la carpeta.
+# Manejo de Errores en la Ingestión y Validación de Datos
 
-2.Manejo de errores en listar_archivos
- * Se capturan FileNotFoundError (si la carpeta no existe), PermissionError (sin permisos de lectura) y un bloque genérico except Exception para cualquier error extraño.
- * En todos los casos, se lanza una excepción con un mensaje claro de “qué carpeta” y “por qué falló”.
+Este documento describe los mecanismos implementados para gestionar errores durante la **ingestión y validación de archivos** dentro del sistema, asegurando una ejecución robusta y proporcionando mensajes de error claros al usuario.
 
-3.Manejo de errores en cargar
- * Se comprueba que el archivo exista (os.path.isfile). Si no existe, se lanza FileNotFoundError.
- * Se valida la extensión (.csv o .json). Si el usuario pasa otra cosa, se lanza ValueError con detalle de la extensión esperada.
- * Los bloques try/except alrededor de pd.read_csv o pd.read_json detectan errores específicos:
-           * EmptyDataError / ValueError al parsear el formato.
-           * PermissionError si no hay permisos.
-           * Un except Exception genérico para mensajes imprevistos.
- * Si existe columna fecha, se intenta convertir a datetime. Si falla, se imprime un aviso con “⚠️ Advertencia” pero no se detiene la carga (ya que la ausencia de conversión de fecha podría no ser crítica).
+---
 
-4.Validación de extensión en LectorFactory
- * Antes de comparar la extensión, se verifica que el argumento no sea vacío ni None.
- * Se detallan en el mensaje de error las extensiones admitidas (solo .csv o .json).
+##  1. Verificación de existencia/permisos de carpeta
+- En el constructor de `LectorDatos`, se envuelve `os.makedirs` en un bloque `try/except` para **manejar errores de permiso o rutas inválidas**.
+- En caso de fallo, se lanza `RuntimeError` con información detallada sobre el problema al crear o leer la carpeta.
 
-5.Mensajes claros y consistentes
- * Cada excepción incluye la ruta exacta del archivo o carpeta, y el tipo de error.
- * Así, el usuario que ejecute la pipeline sabrá con precisión:
-       * Si la carpeta que contiene los archivos no existe o no se pudo crear.
-       * Si un archivo concreto no está presente.
-       * Si el archivo no tiene la extensión esperada.
-       * Si hubo un problema al parsear el CSV/JSON (por formato inválido, JSON mal formado, etc.).
-       * Si faltan permisos para acceder a disco.
+---
+
+##  2. Manejo de errores en `listar_archivos`
+- Se capturan excepciones específicas:
+  - `FileNotFoundError` → Si la carpeta no existe.
+  - `PermissionError` → Si el usuario no tiene permisos de lectura.
+  - `Exception` (genérico) → Para errores inesperados.
+- **Cada error incluye un mensaje claro** indicando:
+  - Qué carpeta se intentó acceder.
+  - Por qué falló la operación.
+
+---
+
+##  3. Manejo de errores en `cargar`
+- Se comprueba la **existencia del archivo** con `os.path.isfile`. Si no existe, se lanza `FileNotFoundError`.
+- **Validación de extensión**: Se restringe la carga solo a `.csv` o `.json`, lanzando `ValueError` si la extensión no es válida.
+- **Gestión de errores específicos** en `pd.read_csv` y `pd.read_json`:
+  - `EmptyDataError / ValueError` → Si el formato es incorrecto o corrupto.
+  - `PermissionError` → Si el usuario no tiene permisos de acceso.
+  - `Exception` → Para errores inesperados.
+- **Conversión de columna `fecha`**:
+  - Si existe, se intenta transformar a `datetime`.
+  - Si la conversión falla, se imprime una **advertencia** (`⚠️ Advertencia`), pero no se bloquea la carga del archivo.
+
+---
+
+##  4. Validación de extensión en `LectorFactory`
+- Se verifica que el **argumento de extensión** no sea vacío ni `None` antes de compararlo.
+- Se proporciona un **mensaje de error detallado** con las **extensiones admitidas** (`.csv` y `.json`).
+
+---
+
+## 🛠️ 5. Mensajes claros y consistentes
+Cada excepción está diseñada para proporcionar información precisa al usuario, asegurando transparencia en los errores detectados. Se reportan los siguientes casos:
+ **La carpeta de datos no existe** o no se pudo crear.  
+ **Un archivo concreto no está presente** en el directorio.  
+ **La extensión del archivo no es válida** (debe ser `.csv` o `.json`).  
+ **El archivo tiene formato incorrecto** (JSON mal formado, CSV corrupto, etc.).  
+ **Falta de permisos** para acceder al sistema de archivos.  
+
+---
 
 ## Avance 2
 
