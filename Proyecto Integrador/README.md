@@ -197,6 +197,18 @@ Cada excepción está diseñada para proporcionar información precisa al usuari
   2. **Separación de responsabilidades**: La lógica de construcción (validación de campos, valores por defecto, etc.) queda aislada en `SalesBuilder`, mientras que la clase `Sales` se mantiene limpia, con solo mapeo ORM y su propia lógica de negocio (por ejemplo `calcular_total()`).  
   3. **Lectura clara y encadenada**: El código que crea ventas en el pipeline queda más legible, al encadenar `builder.set_...().set_...().build()` en lugar de pasar un montón de parámetros posicionales o diccionarios sueltos.
 
+### 3. Factory Method (archivo src/ingestion/lector.py)
+- **Funcionalidad**:
+  El patrón Factory Method permite seleccionar dinámicamente el lector adecuado según la extensión del archivo de entrada (CSV o JSON).
+   - En LectorFactory.get_lector(ext), se recibe la extensión del archivo (.csv o .json).
+   - Si la extensión es .csv, devuelve una instancia de LectorCSV; si es .json, devuelve una instancia de LectorJSON.
+   - En caso de una extensión distinta, lanza ValueError indicando que el formato no está soportado.
+
+- **Beneficios**: 
+   1. **Extensibilidad sencilla**: Para soportar un nuevo formato (por ejemplo, XML), basta con agregar una clase LectorXML y extender get_lector() para reconocer .xml, sin modificar la lógica de carga existente.
+   2. **Separación de responsabilidades**: La lógica de “qué lector usar” queda centralizada en LectorFactory, mientras que cada clase concreta (LectorCSV o LectorJSON) solo se encarga de leer y parsear su propio formato.
+   3. **Código desacoplado y fácil de mantener**: Los módulos que consumen archivos (por ejemplo, la pipeline) solo llaman a get_lector(ext) sin preocuparse por detalles internos de lectura. Si en el futuro cambian los requisitos de validación de un formato, solo se ajusta la clase específica, sin tocar el resto de la aplicación.
+
 ---
 
 ## Exportación de `run_sql = db.run_sql` (archivo `src/db.py`)
