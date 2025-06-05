@@ -19,8 +19,8 @@ Diseñar e implementar un sistema robusto que:
 │   ├── raw                     # Archivos fuente (.csv, .json)
 │   └── processed               # Archivos transformados y listos para cargar
 ├── sql               
-│    ├── createDB.sql           # Scripts SQL para creación de la base de datos y tablas
-│    └── load_data.sql          # Scripts SQL para carga y preparación de tablas (Excepto sales)
+│   ├── createDB.sql           # Scripts SQL para creación de la base de datos y tablas
+│   └── load_data.sql          # Scripts SQL para carga y preparación de tablas (Excepto sales)
 ├── src                         # Código fuente
 │   ├── config.py               # Variables de entorno y configuración general
 │   ├── db.py                   # Conexión y sesión con la base de datos MySQL
